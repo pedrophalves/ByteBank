@@ -1,1 +1,6 @@
 c:\users\pedro melo\documents\visual studio 2015\Projects\ByteBank.Portal\ByteBank.Portal\bin\Debug\ByteBank.Portal.exe.config
+C:\Users\Pedro Melo\documents\visual studio 2015\Projects\ByteBank.Portal\ByteBank.Portal\bin\Debug\ByteBank.Portal.exe
+C:\Users\Pedro Melo\documents\visual studio 2015\Projects\ByteBank.Portal\ByteBank.Portal\bin\Debug\ByteBank.Portal.pdb
+C:\Users\Pedro Melo\documents\visual studio 2015\Projects\ByteBank.Portal\ByteBank.Portal\obj\Debug\ByteBank.Portal.csprojResolveAssemblyReference.cache
+C:\Users\Pedro Melo\documents\visual studio 2015\Projects\ByteBank.Portal\ByteBank.Portal\obj\Debug\ByteBank.Portal.exe
+C:\Users\Pedro Melo\documents\visual studio 2015\Projects\ByteBank.Portal\ByteBank.Portal\obj\Debug\ByteBank.Portal.pdb
