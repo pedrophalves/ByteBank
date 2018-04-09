@@ -10,77 +10,56 @@ namespace ByteBank.Portal.Infra
 {
     public class WebApplication
     {
-        private readonly string[] _prefixos;
+        private readonly string[] _prefixes;
 
-        public WebApplication(string[] prefixos)
+        public WebApplication(string[] prefixes)
         {
-            if(prefixos == null)
+            if (prefixes == null)
             {
-                throw new ArgumentNullException(nameof(prefixos));
+                throw new ArgumentNullException(nameof(prefixes));
             }
-            _prefixos = prefixos;
+            _prefixes = prefixes;
         }
 
-        public void Iniciar()
+        public void Start()
         {
             while (true)
             {
-                ManipularRequisicao();
+                ManipulateRequest();
             }
         }
 
-        private void ManipularRequisicao()
+        private void ManipulateRequest()
         {
             var httpListener = new HttpListener();
 
-            foreach (var prefixo in _prefixos)
+            foreach (var prefixo in _prefixes)
             {
                 httpListener.Prefixes.Add(prefixo);
             }
 
             httpListener.Start();
-            var contexto = httpListener.GetContext();
-            var requisicao = contexto.Request;
-            var resposta = contexto.Response;
 
-            var path = requisicao.Url.AbsolutePath;
+            var context = httpListener.GetContext();
+            var request = context.Request;
+            var response = context.Response;
+
+            var path = request.Url.AbsolutePath;
             var assembly = Assembly.GetExecutingAssembly();
 
-            if (path == "/Assets/css/styles.css")
-            {
-                var nomeResource = "ByteBank.Portal.Assets.css.styles.css";
+            var resourceName = Utils.ConvertPathToAssemblyName(path);
 
-                var resourceStream = assembly.GetManifestResourceStream(nomeResource);
-                var bytesResource = new byte[resourceStream.Length];
+            var resourceStream = assembly.GetManifestResourceStream(resourceName);
+            var bytesResource = new byte[resourceStream.Length];
 
-                resourceStream.Read(bytesResource, 0, (int)resourceStream.Length);
+            resourceStream.Read(bytesResource, 0, (int)resourceStream.Length);
 
-                resposta.ContentType = "text/css; charset=utf-8";
-                resposta.StatusCode = 200;
-                resposta.ContentLength64 = resourceStream.Length;
+            response.ContentType = Utils.GetContetType(path);
+            response.StatusCode = 200;
+            response.ContentLength64 = resourceStream.Length;
 
-                resposta.OutputStream.Write(bytesResource, 0, bytesResource.Length);
-                resposta.OutputStream.Close();
-            }
-            else
-            {
-                if (path == "/Assets/js/main.js")
-                {
-                    var nomeResource = "ByteBank.Portal.Assets.js.main.js";
-
-                    var resourceStream = assembly.GetManifestResourceStream(nomeResource);
-                    var bytesResource = new byte[resourceStream.Length];
-
-                    resourceStream.Read(bytesResource, 0, (int)resourceStream.Length);
-
-                    resposta.ContentType = "application/js; charset=utf-8";
-                    resposta.StatusCode = 200;
-                    resposta.ContentLength64 = resourceStream.Length;
-
-                    resposta.OutputStream.Write(bytesResource, 0, bytesResource.Length);
-                    resposta.OutputStream.Close();
-                }
-            }
+            response.OutputStream.Write(bytesResource, 0, bytesResource.Length);
+            response.OutputStream.Close();
 
 
 

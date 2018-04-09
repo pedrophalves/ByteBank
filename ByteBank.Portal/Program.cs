@@ -11,10 +11,10 @@ namespace ByteBank.Portal
     {
         static void Main(string[] args)
         {
-            var prefixos = new string[] { "http://localhost:5341/" };
+            var prefixes = new string[] { "http://localhost:5341/" };
 
-            var webApplication = new WebApplication(prefixos);
-            webApplication.Iniciar();
+            var webApplication = new WebApplication(prefixes);
+            webApplication.Start();
         }
     }
 }
